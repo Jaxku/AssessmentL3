@@ -44,81 +44,81 @@
       "question": "What is the Maori name of Wellington?",
       "correct_answer": "Te Whanganui-a-Tara",
       "incorrect_answers": [
-        "Fender Stratocaster",
-        "LsL Mongrel",
-        "Gretsch Falcon"
+        "Tāmaki Makaurau",
+        "Ōtautahi",
+        "Awakairangi"
       ]
     },
     {
       "type": "multiple",
       "difficulty": "medium",
-      "category": "Sports",
-      "question": "Which nation hosted the FIFA World Cup in 2006?",
-      "correct_answer": "Germany",
+      "category": "Cities",
+      "question": "What is the Maori name of Christchurch?",
+      "correct_answer": "Ōtautahi",
       "incorrect_answers": [
-        "United Kingdom",
-        "Brazil",
-        "South Africa"
+        "Te Whanganui-a-Tara",
+        "Tāmaki Makaurau",
+        "Awakairangi"
       ]
     },
     {
       "type": "multiple",
       "difficulty": "medium",
-      "category": "Entertainment: Japanese Anime &amp; Manga",
-      "question": "What song plays in the ending credits of the anime &quot;Ergo Proxy&quot;?",
-      "correct_answer": "Paranoid Android",
+      "category": "Cities",
+      "question": "What is the Maori name of Queenstown?",
+      "correct_answer": "Tāhuna",
       "incorrect_answers": [
-        "Sadistic Summer",
-        "Bittersweet Symphony",
-        "Mad World"
+        "Ōtautahi",
+        "Tāmaki Makaurau",
+        "Awakairangi"
       ]
     },
     {
       "type": "multiple",
-      "difficulty": "easy",
-      "category": "Entertainment: Japanese Anime &amp; Manga",
-      "question": "In &quot;Future Diary&quot;, what is the name of Yuno Gasai&#039;s Phone Diary?",
-      "correct_answer": "Yukiteru Diary",
+      "difficulty": "hard",
+      "category": "Months",
+      "question": "What is the Maori name for October?",
+      "correct_answer": "Whiringa-ā-nuku",
       "incorrect_answers": [
-        "Murder Diary",
-        "Escape Diary ",
-        "Justice Diary "
+        "Hakihea",
+        "Haratua",
+        "Whiringa-ā-rangi "
       ]
     },
     {
       "type": "multiple",
-      "difficulty": "medium",
-      "category": "Entertainment: Television",
-      "question": "Alan Reed is known for providing the voice of which character?",
-      "correct_answer": "Fred Flintstone",
+      "difficulty": "hard",
+      "category": "Months",
+      "question": "What is the Maori name for December?",
+      "correct_answer": "Hakihea",
       "incorrect_answers": [
-        "Bugs Bunny",
-        "Fangface",
-        "G.I. Joe"
+        "Whiringa-ā-nuku",
+        "Haratua",
+        "Whiringa-ā-rangi"
       ]
     },
     {
       "type": "multiple",
-      "difficulty": "easy",
-      "category": "Geography",
-      "question": "How many countries does Mexico border?",
-      "correct_answer": "3",
+      "difficulty": "hard",
+      "category": "Months",
+      "question": "What is the Maori name for February?",
+      "correct_answer": "Hui-tanguru",
       "incorrect_answers": [
-        "2",
-        "4",
-        "1"
+        "Hakihea",
+        "Haratua",
+        "Whiringa-ā-rangi"
       ]
     },
     {
       "type": "multiple",
-      "difficulty": "easy",
-      "category": "Science: Computers",
-      "question": "How many kilobytes in one gigabyte (in decimal)?",
-      "correct_answer": "1000000",
+      "difficulty": "hard",
+      "category": "Months",
+      "question": "What is the Maori name for June?",
+      "correct_answer": "Pipiri",
       "incorrect_answers": [
-        "1024",
-        "1000",
-        "1048576"
+        "Hakihea",
+        "Haratua",
+        "Whiringa-ā-rangi"
       ]
     }
   ]
