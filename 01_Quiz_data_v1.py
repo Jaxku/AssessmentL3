@@ -1,3 +1,6 @@
+"""
+This file is used to get the quiz data from the API.
+"""
 import requests
 
 parameters = {
@@ -5,4 +8,5 @@ parameters = {
     "type": "multiple"
 }
 
-response = requests.get("https://opentdb.com/api.php", params=parameters)
+response = requests.get(url="https://raw.githubusercontent.com/Jaxku/AssessmentL3/main/RawQuestionData.py", params=parameters)
+question_data = response.json()["results"]
