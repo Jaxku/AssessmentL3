@@ -14,12 +14,61 @@ parameters = {
 response = requests.get(url="https://raw.githubusercontent.com/Jaxku/AssessmentL3/main/RawQuestionData.py", params=parameters)
 question_data = response.json()["results"]
 
+class QuizGUI:
+    def __init__(self, quiz: QuizOperation):
+        self.quiz = quiz
+        self.window = tk.Tk()
+        self.window.title("iQuiz Application")
+        self.window.geometry("800x600")
+
+        # Display the title
+        self.display_title()
+
+        # Display question area
+        self.canvas = Canvas(self.window, width=800, height=250)
+        self.canvas.grid(row=2, column=0, columnspan=2, pady=50)
+        self.display_question()
+
+        # Display options
+        self.opts = []
+        self.display_options()
+
+        # User answer variable
+        self.user_answer = StringVar()
+
+        # Feedback label
+        self.feedback = Label(self.window, pady=10, font=("ariel", 15, "bold"))
+        self.feedback.grid(row=5, column=0, columnspan=2)
+
+        # Next and Quit buttons
+        self.buttons()
+
+        # Mainloop
+        self.window.mainloop()
+
+
+
+    def display_title(self):  # Display title
+        title = Label(self.window, text="Maori Quiz",
+                              width=50, bg="green", fg="white", font=("ariel", 20, "bold"))
+        title.place(x=0, y=2)
+
+
+
+    def display_question(self):
+        self.canvas.delete("question")
+        q_text = self.quiz.next_question()
+        self.canvas.create_text(400, 125, text=q_text, width=680,
+                                fill="black", font=('Helvetica', 15, 'bold'), tag="question")
+        #    YOU ARE UP TO HERE INSET RADIO BUTTONS ASAP HERE FINAL CODE TIME
 
 class Question:
     def __init__(self, question: str, correct_answer: str, choices: list):
         self.question = question
         self.correct_answer = correct_answer
         self.choices = choices
+
+        ###
 
 
 class QuizOperation:
@@ -104,48 +153,14 @@ def next_button(self):
     messagebox.showinfo("Result", f"{result}\n{correct}\n{wrong}")
 
 
-class QuizGUI:
-    def __init__(self, quiz: QuizOperation):
-        self.quiz = quiz
-        self.window = tk.Tk()
-        self.window.title("iQuiz Application")
-        self.window.geometry("800x600")
 
-        # Display the title
-        self.display_title()
-
-        # Display question area
-        self.canvas = Canvas(self.window, width=800, height=250)
-        self.canvas.grid(row=2, column=0, columnspan=2, pady=50)
-        self.display_question()
-
-        # Display options
-        self.opts = []
-        self.display_options()
-
-        # User answer variable
-        self.user_answer = StringVar()
-
-        # Feedback label
-        self.feedback = Label(self.window, pady=10, font=("ariel", 15, "bold"))
-        self.feedback.grid(row=5, column=0, columnspan=2)
-
-        # Next and Quit buttons
-        self.buttons()
-
-        # Mainloop
-        self.window.mainloop()
 
     def display_title(self):
         title = Label(self.window, text="iQuiz Application",
                       width=50, bg="green", fg="white", font=("ariel", 20, "bold"))
         title.grid(row=0, column=0, columnspan=2, pady=10)
 
-    def display_question(self):
-        self.canvas.delete("question")
-        q_text = self.quiz.next_question()
-        self.canvas.create_text(400, 125, text=q_text, width=680,
-                                fill="black", font=('Helvetica', 15, 'bold'), tag="question")
+
 
     def display_options(self):
         self.opts.clear()
@@ -180,7 +195,4 @@ class QuizGUI:
             self.feedback.config(text=f"Quiz Ended!\nScore: {score}/{self.quiz.question_no}\n"
                                        f"Wrong: {wrong}\nPercent: {percent}%")
 
-        def display_title(self):  # Display title
-            title = Label(self.window, text="Maori Quiz",
-                              width=50, bg="green", fg="white", font=("ariel", 20, "bold"))
-            title.place(x=0, y=2)
+
