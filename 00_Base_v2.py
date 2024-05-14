@@ -156,11 +156,13 @@ class QuizGUI:
             self.opts.append(rb)
             rb.grid(row=3+i, column=0, columnspan=2)
 
+
     def buttons(self):
         next_button = tk.Button(self.window, text="Next", command=self.check_answer)
         next_button.grid(row=4+len(self.opts), column=0, pady=20)
         quit_button = tk.Button(self.window, text="Quit", command=self.window.destroy)
         quit_button.grid(row=4+len(self.opts), column=1, pady=20)
+
 
     def check_answer(self):
         selected_answer = self.user_answer.get()
