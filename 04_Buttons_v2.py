@@ -1,7 +1,5 @@
 """
-This code repersents the next button
-This button will check the results of the user's answer
-and move to the next question
+Based off of V1 this verison checks if the user's answer is correct and updates the score
 """
 
 import requests
@@ -9,7 +7,7 @@ import tkinter as tk
 from tkinter import Canvas, Label, StringVar
 
 
-def next_btn(self):
+def next_button(self):
     """To show feedback for each answer and keep checking for more questions"""
 
     # Check if the answer is correct
@@ -23,3 +21,14 @@ def next_btn(self):
                                      f'The right answer is: '
                                  f'{self.quiz.current_question.correct_answer}'
                                  f'\nYou selected: {self.user_answer.get()}')
+
+    if self.quiz.has_more_questions():
+        # Moves to next to display next question and its options
+        self.display_question()
+        self.display_options()
+    else:
+        # if no more questions, then it displays the score
+        self.display_result()
+
+        # destroys the self.window
+        self.window.destroy()

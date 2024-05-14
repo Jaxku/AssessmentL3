@@ -48,7 +48,8 @@ class QuizGUI:
         self.canvas.delete("question")
         q_text = self.quiz.next_question()
         self.canvas.create_text(400, 125, text=q_text, width=680,
-                                fill="black", font=('Helvetica', 15, 'bold'), tag="question")
+                                fill="black", font=('Arial', 15, 'bold'),
+                                tag="question")
 
     def display_options(self):
         self.opts.clear()
