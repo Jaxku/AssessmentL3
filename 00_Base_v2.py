@@ -4,7 +4,7 @@ Base v2, attempt to make the code function
 
 import requests
 import tkinter as tk
-from tkinter import Canvas, Label, StringVar, messagebox
+from tkinter import Canvas, Label, StringVar, messagebox, Radiobutton
 
 parameters = {
     "amount": 10,
@@ -26,8 +26,9 @@ class QuizGUI:
 
         # Display question area
         self.canvas = Canvas(self.window, width=800, height=250)
-        self.canvas.grid(row=2, column=0, columnspan=2, pady=50)
         self.display_question()
+        self.canvas.grid(row=2, column=0, columnspan=2, pady=50)
+
 
         # Display options
         self.opts = []
@@ -60,7 +61,8 @@ class QuizGUI:
         q_text = self.quiz.next_question()
         self.canvas.create_text(400, 125, text=q_text, width=680,
                                 fill="black", font=('Helvetica', 15, 'bold'), tag="question")
-        #    YOU ARE UP TO HERE INSET RADIO BUTTONS ASAP HERE FINAL CODE TIME
+
+
 
 class Question:
     def __init__(self, question: str, correct_answer: str, choices: list):
