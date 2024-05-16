@@ -1,5 +1,6 @@
 """
 Adds the addition of the GUI to the quiz application, adds to first verison
+still not working as intended, will be fixed in later verisons
 """
 
 import requests
