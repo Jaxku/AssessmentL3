@@ -101,7 +101,7 @@ class QuizGUI:
         """
         self.canvas.delete("question")
         q_text = self.quiz.next_question()
-        self.canvas.create_text(400, 125, text=q_text, width=680, fill="black", font=('Arial', 15, 'bold'), tag="question")
+        self.canvas.create_text(400, 80, text=q_text, width=680, fill="black", font=('Arial', 15, 'bold'), tag="question")
 
     def radio_buttons(self):
         """
