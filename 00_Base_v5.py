@@ -1,6 +1,5 @@
 """
-First Functioning Base Verison! Further verisons will be to refine the code.
-and add different features to the quiz.
+Adds addition of High score to the quiz application.
 """
 
 import requests
