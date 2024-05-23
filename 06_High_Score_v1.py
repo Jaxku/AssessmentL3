@@ -1,6 +1,9 @@
 """
-High Score v1
+High Score v1 also known as the final verison,
+this wont be included in the final as a quiz with a high score is not needed.
+espically in the sense on a quiz which has set questions and answers and isn't endless.
 """
+
 
 def high_score():
     """

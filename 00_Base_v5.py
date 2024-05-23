@@ -1,5 +1,5 @@
 """
-Adds addition of High score to the quiz application.
+Adds addition of score text file export
 """
 
 import requests
@@ -116,7 +116,7 @@ class QuizGUI:
 
     def display_options(self):
         """
-        Display the options for the current question.
+        Display the options (possible answers) for the current question.
         """
         self.user_answer.set(None)
         for rb in self.opts:
