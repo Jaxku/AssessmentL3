@@ -1,6 +1,5 @@
 """
-V5 adds export to txt, final base version before I move towards the refined
-FINAL VERSION.
+Based off of Base v5, This is the final verison of the Moari Quiz.
 """
 
 import requests
@@ -18,14 +17,19 @@ parameters = {
     "type": "multiple"
 }
 
-response = requests.get(url="https://raw.githubusercontent.com/Jaxku/AssessmentL3/main/RawQuestionData.json", params=parameters)
+response = requests.get(url=""
+                            "https://raw.githubusercontent.com/Jaxku/"
+                            "AssessmentL3/main/RawQuestionData.json",
+                        params=parameters)
 question_data = response.json()["results"]
 
-class Question:
+
+class Question: # Class to store the question, correct answer and choices
     def __init__(self, question, correct_answer, choices):
         self.question = question
         self.correct_answer = correct_answer
         self.choices = choices
+
 
 class QuizOperation:
     def __init__(self, questions):
@@ -66,12 +70,14 @@ class QuizGUI:
         self.window.title("Maori Quiz!")
         self.window.geometry("800x600")
 
-        self.user_answer = StringVar()
+        self.user_answer = StringVar()  # Variable to store the user's answer
         self.opts = []
 
         self.display_title()
         self.canvas = Canvas(self.window, width=800, height=250)
-        self.canvas.create_text(400, 125, text="Question", width=680, fill="black", font=('Arial', 15, 'bold'), tag="question")
+        self.canvas.create_text(400, 125, text="Question",
+                                width=680, fill="black",
+                                font=('Arial', 15, 'bold'), tag="question")
         self.canvas.grid(row=2, column=0, columnspan=2, pady=50)
 
         self.display_question()
@@ -86,20 +92,25 @@ class QuizGUI:
 
     def display_title(self):
         # Display the title of the quiz application.
-        title = Label(self.window, text="Maori Quiz", width=50, bg="Red", fg="white", font=("ariel", 20, "bold"))
+        title = Label(self.window, text="Maori Quiz", width=50,
+                      bg="Red", fg="white", font=("ariel", 20, "bold"))
         title.grid(row=0, column=0, columnspan=2, pady=10)
 
     def display_question(self):
         # Display the next question on the canvas.
         self.canvas.delete("question")
         q_text = self.quiz.next_question()
-        self.canvas.create_text(400, 80, text=q_text, width=680, fill="black", font=('Arial', 15, 'bold'), tag="question")
+        self.canvas.create_text(400, 80, text=q_text, width=680,
+                                fill="black", font=('Arial', 15, 'bold'),
+                                tag="question")
 
     def radio_buttons(self):
         # Create radio buttons for the quiz options.
         y_pos = 220
         for _ in range(4):
-            radio_btn = Radiobutton(self.window, text="", variable=self.user_answer, value='', font=("ariel", 14))
+            radio_btn = Radiobutton(self.window, text="",
+                                    variable=self.user_answer,
+                                    value='', font=("ariel", 14))
             radio_btn.place(x=200, y=y_pos)
             self.opts.append(radio_btn)
             y_pos += 40
@@ -111,25 +122,29 @@ class QuizGUI:
             rb.deselect()
 
         choices = self.quiz.current_question.choices
-        for i, choice in enumerate(choices):
+        for i, choice in enumerate(choices):  # Displaying the choices
             self.opts[i].config(text=choice, value=choice)
 
     def buttons(self):
         # Create the Next and Quit buttons.
-        next_button = tk.Button(self.window, text="Next", command=self.check_answer)
+        next_button = tk.Button(self.window, text="Next",
+                                command=self.check_answer)
         next_button.grid(row=6, column=1, pady=20)
 
-        quit_button = tk.Button(self.window, text="Quit", command=self.window.destroy)
+        quit_button = tk.Button(self.window, text="Quit",
+                                command=self.window.destroy)
         quit_button.grid(row=6, column=0, pady=20)
 
     def export_score_high_score(self, score):
         # Export function to record the score and user's name in a text file.
-        user_name = simpledialog.askstring("Enter Username", "Please enter your username:")
+        user_name = simpledialog.askstring("Enter Username",
+                                           "Please enter your username:")
 
         if user_name:
             while True:
                 # Asking the user to select a location to save the file
-                save_path = tk.filedialog.askdirectory(title="Select Folder to Save Your Score")
+                save_path = tk.filedialog.askdirectory(title="Select Folder to"
+                                                       "Save Your Score")
 
                 if save_path:
                     # Creating the file name and path
@@ -142,15 +157,22 @@ class QuizGUI:
                         file.write(f"Score: {score}\n")
 
                     # Displaying message box with confirmation
-                    messagebox.showinfo("Score Saved", f"Score saved successfully for {user_name}!")
+                    messagebox.showinfo("Score Saved", f"Score saved "
+                                                       f"successfully for "
+                                                       f"{user_name}!")
 
                     # Ending the program
                     self.window.destroy()
                     break
                 else:
                     # Ask if the user wants to abort saving
-                    if messagebox.askyesno("Error", "No folder selected! Do you want to abort saving?"):
-                        confirm_abort = messagebox.askyesno("Confirm Abort", "Are you sure you want to abort saving the score?")
+                    if messagebox.askyesno("Error",
+                                           "No folder selected! "
+                                           "Do you want to abort saving?"):
+                        confirm_abort = messagebox.\
+                            askyesno("Confirm Abort",
+                                     "Are you sure you want to"
+                                     " abort saving the score?")
                         if confirm_abort:
                             # End the program if the user confirms aborting
                             self.window.destroy()
@@ -158,7 +180,6 @@ class QuizGUI:
         else:
             # Displaying an error message if no username is provided
             messagebox.showerror("Error", "Username cannot be empty!")
-
 
     def check_answer(self):
         # Check the user's answer and update the quiz state.
@@ -168,13 +189,16 @@ class QuizGUI:
             self.feedback.config(text="Correct!", fg="green")
         else:
             self.feedback.config(text="Wrong!", fg="red")
-
+        # Display the next question or end the quiz.
         if self.quiz.anymore_questions():
             self.display_question()
             self.display_options()
         else:
             score, wrong, percent = self.quiz.get_score()
-            self.feedback.config(text=f"Quiz Ended!\nScore: {score}/{self.quiz.question_no}\nWrong: {wrong}\nPercent: {percent}%")
+            self.feedback.config(text=f"Quiz Ended!\nScore: "
+                                      f"{score}/"
+                                      f"{self.quiz.question_no}\nWrong:"
+                                      f" {wrong}\nPercent: {percent}%")
             self.export_score_high_score(score)
             self.lock_quiz()
 
@@ -188,7 +212,8 @@ class QuizGUI:
 # Create questions from the question_data
 questions = []
 for item in question_data:
-    question = Question(item['question'], item['correct_answer'], item['incorrect_answers'] + [item['correct_answer']])
+    question = Question(item['question'], item['correct_answer'],
+                        item['incorrect_answers'] + [item['correct_answer']])
     questions.append(question)
 
 # Initialize the quiz and GUI
