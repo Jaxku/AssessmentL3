@@ -216,6 +216,6 @@ for item in question_data:
                  item['incorrect_answers'] + [item['correct_answer']])
     quiz_questions.append(q)
 
-# Initialize the quiz and GUI
+# Initialize the quiz and GUI (Main Routine to run the quiz)
 quiz_instance = QuizOperation(quiz_questions)
 quiz_gui = QuizGUI(quiz_instance)
