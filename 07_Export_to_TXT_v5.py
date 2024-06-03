@@ -11,41 +11,69 @@ from tkinter import simpledialog
 
 
 def export_score_high_score(self, score):
-    # Export function to record the score and user's name in a text file.
-    user_name = simpledialog.askstring("Enter Username", "Please enter your username:")
-
-    if user_name:
+        """Export the user's score to a text file."""
         while True:
-            # Asking the user to select a location to save the file
-            save_path = tk.filedialog.askdirectory(title="Select Folder to Save Your Score")
+            # Export function to record the score
+            # and user's name in a text file
+            user_name = simpledialog.askstring("Enter Username",
+                                               "Please enter your username:")
 
-            if save_path:
-                # Creating the file name and path
-                file_name = f"{user_name}_score.txt"
-                file_path = os.path.join(save_path, file_name)
+            if user_name:
+                while True:
+                    # Asking the user to select a location to save the file
+                    save_path = tk.filedialog.askdirectory(title="Select "
+                                                                 "Folder to"
+                                                                 " Save Your "
+                                                                 "Score")
 
-                # Writing the score to the file
-                with open(file_path, "w") as file:
-                    file.write(f"User: {user_name}\n")
-                    file.write(f"Score: {score}\n")
+                    if save_path:
+                        # Creating the file name and path
+                        file_name = f"{user_name}_score.txt"
+                        file_path = os.path.join(save_path, file_name)
 
-                # Displaying message box with confirmation
-                messagebox.showinfo("Score Saved", f"Score saved successfully for {user_name}!")
+                        # Writing the score to the file
+                        with open(file_path, "w") as file:
+                            file.write(f"User: {user_name}\n")
+                            file.write(f"Score: {score}\n")
 
-                # Ending the program
-                self.window.destroy()
-                break
+                        # Displaying message box with confirmation
+                        messagebox.showinfo("Score Saved", f"Score saved"
+                                                           f" successfully"
+                                            f"for {user_name}!")
+
+                        # Ending the program
+                        self.window.destroy()
+                        return  # Exit the function
+
+                    else:
+                        # Ask if the user wants to abort saving
+                        if messagebox.askyesno("Error", "No folder selected! "
+                                                        "Do you want to abort "
+                                                        "saving?"):
+                            confirm_abort = messagebox.askyesno("Confirm "
+                                                                "Abort",
+                                                                "Do you "
+                                                                "want to "
+                                                                "abort saving "
+                                                                "the "
+                                                                "score?")
+                            if confirm_abort:
+                                # End the program if the user confirms aborting
+                                self.window.destroy()
+                                return  # Exit the function
+
             else:
                 # Ask if the user wants to abort saving
-                if messagebox.askyesno("Error", "No folder selected! Do you want to abort saving?"):
-                    confirm_abort = messagebox.askyesno("Confirm Abort", "Are you sure you want to abort saving the score?")
-                    if confirm_abort:
-                        # End the program if the user confirms aborting
-                        self.window.destroy()
-                        break
-    else:
-        # Displaying an error message if no username is provided
-        messagebox.showerror("Error", "Username cannot be empty!")
+                if messagebox.askyesno("Confirm Abort", "You pressed cancel. "
+                                                        "Do you want to abort"
+                                                        " saving the score?"):
+                    self.window.destroy()
+                    return  # Exit the function
+                else:
+                    # Ask the user to enter their username again
+                    messagebox.showerror("Error", "Username cannot be empty. "
+                                                  "Please enter your "
+                                                  "username.")
 
 def check_answer(self):
     # Check the user's answer and update the quiz state.
