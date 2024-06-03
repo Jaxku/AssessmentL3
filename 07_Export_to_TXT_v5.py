@@ -13,67 +13,78 @@ from tkinter import simpledialog
 def export_score_high_score(self, score):
         """Export the user's score to a text file."""
         while True:
-            # Export function to record the score
-            # and user's name in a text file
-            user_name = simpledialog.askstring("Enter Username",
-                                               "Please enter your username:")
+            # Ask for the user's name
+            user_name = simpledialog.askstring(
+                "Enter Username", "Please enter your username:"
+            )
 
-            if user_name:
+            # If user presses Cancel, ask if they want to abort saving
+            if user_name is None:
+                if messagebox.askyesno(
+                    "Confirm Abort",
+                    "You pressed cancel. Do you want to abort saving the score?"
+                ):
+                    try:
+                        self.window.destroy()
+                    except tk.TclError:
+                        pass
+                    return  # Exit the function
+
+            # If the username is empty, show an error and continue the loop
+            elif not user_name.strip():
+                messagebox.showerror(
+                    "Error",
+                    "Username cannot be empty. Please enter your username."
+                )
+
+            # If a valid username is entered
+            else:
                 while True:
-                    # Asking the user to select a location to save the file
-                    save_path = tk.filedialog.askdirectory(title="Select "
-                                                                 "Folder to"
-                                                                 " Save Your "
-                                                                 "Score")
+                    # Ask the user to select a location to save the file
+                    save_path = tk.filedialog.askdirectory(
+                        title="Select Folder to Save Your Score"
+                    )
 
+                    # If a valid folder is selected
                     if save_path:
-                        # Creating the file name and path
+                        # Create the file name and path
                         file_name = f"{user_name}_score.txt"
                         file_path = os.path.join(save_path, file_name)
 
-                        # Writing the score to the file
+                        # Write the score to the file
                         with open(file_path, "w") as file:
                             file.write(f"User: {user_name}\n")
                             file.write(f"Score: {score}\n")
 
-                        # Displaying message box with confirmation
-                        messagebox.showinfo("Score Saved", f"Score saved"
-                                                           f" successfully"
-                                            f"for {user_name}!")
+                        # Display confirmation message
+                        messagebox.showinfo(
+                            "Score Saved",
+                            f"Score saved successfully for {user_name}!"
+                        )
 
-                        # Ending the program
-                        self.window.destroy()
+                        # End the program
+                        try:
+                            self.window.destroy()
+                        except tk.TclError:
+                            pass
                         return  # Exit the function
 
+                    # If no folder is selected, ask if the user wants to abort saving
                     else:
-                        # Ask if the user wants to abort saving
-                        if messagebox.askyesno("Error", "No folder selected! "
-                                                        "Do you want to abort "
-                                                        "saving?"):
-                            confirm_abort = messagebox.askyesno("Confirm "
-                                                                "Abort",
-                                                                "Do you "
-                                                                "want to "
-                                                                "abort saving "
-                                                                "the "
-                                                                "score?")
-                            if confirm_abort:
-                                # End the program if the user confirms aborting
-                                self.window.destroy()
+                        if messagebox.askyesno(
+                            "Error",
+                            "No folder selected! Do you want to abort saving?"
+                        ):
+                            if messagebox.askyesno(
+                                "Confirm Abort",
+                                "Do you want to abort saving the score?"
+                            ):
+                                try:
+                                    self.window.destroy()
+                                except tk.TclError:
+                                    pass
                                 return  # Exit the function
 
-            else:
-                # Ask if the user wants to abort saving
-                if messagebox.askyesno("Confirm Abort", "You pressed cancel. "
-                                                        "Do you want to abort"
-                                                        " saving the score?"):
-                    self.window.destroy()
-                    return  # Exit the function
-                else:
-                    # Ask the user to enter their username again
-                    messagebox.showerror("Error", "Username cannot be empty. "
-                                                  "Please enter your "
-                                                  "username.")
 
 def check_answer(self):
     # Check the user's answer and update the quiz state.

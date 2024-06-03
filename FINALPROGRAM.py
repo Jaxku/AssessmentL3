@@ -15,7 +15,8 @@ parameters = {
 }
 
 response = requests.get(
-    url="https://raw.githubusercontent.com/Jaxku/AssessmentL3/main/RawQuestionData.json",
+    url="https://raw.githubusercontent.com"
+        "/Jaxku/AssessmentL3/main/RawQuestionData.json",
     params=parameters
 )
 question_data = response.json()["results"]
@@ -163,7 +164,8 @@ class QuizGUI:
             if user_name is None:
                 if messagebox.askyesno(
                     "Confirm Abort",
-                    "You pressed cancel. Do you want to abort saving the score?"
+                    "You pressed cancel. Do you want"
+                    " to abort saving the score?"
                 ):
                     try:
                         self.window.destroy()
@@ -210,7 +212,7 @@ class QuizGUI:
                             pass
                         return  # Exit the function
 
-                    # If no folder is selected, ask if the user wants to abort saving
+            # If no folder is selected, ask if the user wants to abort saving
                     else:
                         if messagebox.askyesno(
                             "Error",
@@ -233,20 +235,27 @@ class QuizGUI:
             self.quiz.score += 1
             self.feedback.config(text="Correct!", fg="green")
         else:
-            self.feedback.config(text="Wrong!", fg="red")
+            correct_answer = self.quiz.current_question.correct_answer
+            self.feedback.config(text=f"Wrong! The correct"
+                                      f" answer was: {correct_answer}",
+                                 fg="red")
         # Display the next question or end the quiz
         if self.quiz.anymore_questions():
             self.display_question()
             self.display_options()
         else:
-            score, wrong, percent = self.quiz.get_score()
-            self.feedback.config(
-                text=f"Quiz Ended!\nScore: {score}/"
-                     f"{self.quiz.question_no}\nWrong: "
-                     f"{wrong}\nPercent: {percent}%"
-            )
-            self.export_score_high_score(score)
-            self.lock_quiz()
+            self.window.after(1000, self.show_final_results)
+
+    def show_final_results(self):
+        """Show the final results of the quiz."""
+        score, wrong, percent = self.quiz.get_score()
+        self.feedback.config(
+            text=f"Quiz Ended!\nScore: {score}/"
+                 f"{self.quiz.question_no}\nWrong: "
+                 f"{wrong}\nPercent: {percent}%"
+        )
+        self.export_score_high_score(score)
+        self.lock_quiz()
 
     def lock_quiz(self):
         """Lock the quiz by disabling the Next button at end of quiz."""
